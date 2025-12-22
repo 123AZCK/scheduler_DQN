@@ -163,8 +163,7 @@ class SchedulingEnv:
         waiting_time = max(0.0, start_time - self.current_time)
         new_ms = max(d.busy_until for d in self.devices)
 
-        # 预测时间后，直接更新预测模型？不太符合逻辑，也许应该全部调度完之后（12.5，不需要，任务与设备一一对应更新），再更新模型，同时test时感觉不需要这一步
-        #12.8训练时模拟出的真实运行时间，实际上硬件时该怎么办
+        
         if self.predictor_update_on_step:
             reward = - (waiting_time + actual_time)
             self.predictor.update_model(task, device, actual_time, pred_time)
